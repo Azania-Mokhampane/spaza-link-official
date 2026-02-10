@@ -1,73 +1,151 @@
-# React + TypeScript + Vite
+# Spaza Link - Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React + TypeScript + Vite application for the Spaza Link platform. This client application serves multiple user types including customers and traders with a responsive, PWA-enabled interface.
 
-Currently, two official plugins are available:
+## 🚀 Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
 
-## React Compiler
+- Node.js (v18 or higher)
+- Yarn (this project uses Yarn for package management)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Installation
 
-## Expanding the ESLint configuration
+1. Clone the repository and navigate to the project directory
+2. Install dependencies:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+yarn install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Start the development server:
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+yarn dev
 ```
+
+The application will be available at `http://localhost:5173` with hot module replacement (HMR) enabled.
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Application routes and layouts
+│   ├── routes.tsx         # Route definitions
+│   ├── layouts/           # Page layouts (Customer, Trader, Public)
+│   └── screens/           # Main screens for different user types
+├── components/            # Reusable UI components
+│   ├── business/          # Business-specific components
+│   ├── feedback/          # Feedback & empty state components
+│   └── ui/                # Base UI components (built with shadcn)
+├── assets/                # Static assets
+└── lib/
+    └── utils.ts           # Utility functions
+```
+
+## 🎯 Key Features
+
+- **Multiple User Types**: Different layouts and screens for customers and traders
+- **Progressive Web App (PWA)**: Offline-capable application with service worker support
+- **Component Library**: Pre-built UI components using Radix UI and Tailwind CSS
+- **Type Safety**: Full TypeScript support with strict type checking
+- **Modern Stack**: React 19, Vite 7, Tailwind CSS 4
+
+## 📦 Available Scripts
+
+```bash
+# Development server with HMR
+yarn dev
+
+# Build for production
+yarn build
+
+# Preview production build locally
+yarn preview
+
+# Lint code
+yarn lint
+
+# Generate PWA icons
+yarn generate-pwa-icons
+```
+
+## 🛠️ Tech Stack
+
+- **Frontend Framework**: React 19.2
+- **Language**: TypeScript
+- **Build Tool**: Vite 7
+- **Styling**: Tailwind CSS 4
+- **UI Components**: Radix UI + shadcn/ui
+- **Routing**: React Router DOM 7
+- **Icons**: Lucide React
+- **PWA Support**: Workbox + Vite PWA Plugin
+
+## 📝 Component Organization
+
+### UI Components (`/components/ui/`)
+
+Base components like buttons, cards, badges, and skeleton loaders built with Tailwind CSS and Radix UI.
+
+### Business Components (`/components/business/`)
+
+Domain-specific components such as business cards and maps.
+
+### Layouts (`/app/layouts/`)
+
+Page templates for different user types (Customer, Trader, Public).
+
+### Screens (`/app/screens/`)
+
+Full page implementations for home screens and entry points.
+
+## 🌐 Routing
+
+Routes are defined in [src/app/routes.tsx](src/app/routes.tsx). The application supports different layouts based on user type:
+
+- **Public Layout**: For unauthenticated users
+- **Customer Layout**: For customer users
+- **Trader Layout**: For trader users
+
+## 🔧 ESLint Configuration
+
+The project uses ESLint for code quality. To lint your code:
+
+```bash
+yarn lint
+```
+
+For production applications, consider enabling type-aware lint rules by updating the ESLint configuration.
+
+## 🏗️ Building for Production
+
+```bash
+yarn build
+```
+
+This command:
+
+1. Runs TypeScript compiler check
+2. Builds with Vite
+3. Outputs optimized files to the `dist/` directory
+
+## 📱 PWA Features
+
+This project is configured as a Progressive Web App. To regenerate PWA icons:
+
+```bash
+yarn generate-pwa-icons
+```
+
+## 🤝 Contributing
+
+When working on this project:
+
+1. Follow the existing folder structure
+2. Use TypeScript for type safety
+3. Run `yarn lint` before committing
+4. Keep components reusable and well-documented
+
+## 📄 License
+
+See the [LICENSE](LICENSE) file for details.
