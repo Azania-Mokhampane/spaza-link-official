@@ -1,4 +1,4 @@
-import type { Business } from "@/app/screens/CustomerHomeScreen";
+import type { Business } from "@/app/screens/Customer";
 import { BadgeCheck, MapPin } from "lucide-react";
 
 interface IMockHuaweiMapProps {

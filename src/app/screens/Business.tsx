@@ -1,7 +1,7 @@
 import EmptyState from "@/components/feedback/EmptyState";
 import { Briefcase } from "lucide-react";
 
-const TraderHomeScreen = () => {
+const Business = () => {
   document.title = "Your Business · Spaza Link";
 
   return (
@@ -32,4 +32,4 @@ const TraderHomeScreen = () => {
   );
 };
 
-export default TraderHomeScreen;
+export default Business;
