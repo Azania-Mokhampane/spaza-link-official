@@ -138,9 +138,9 @@ const Navbar = () => {
                     <p className="text-xs text-muted-foreground">
                       {user?.email}
                     </p>
-                    {user?.phone && (
+                    {user?.phoneNumber && (
                       <p className="text-xs text-muted-foreground">
-                        {user.phone}
+                        {user.phoneNumber}
                       </p>
                     )}
                     <p className="text-[11px] text-muted-foreground/70">

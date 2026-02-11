@@ -19,5 +19,5 @@ createRoot(document.getElementById("root")!).render(
       <AuthSync />
       <App />
     </ClerkProvider>
-  </StrictMode>,
+  </StrictMode>
 );
