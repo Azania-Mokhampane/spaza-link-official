@@ -83,7 +83,7 @@ const SpendConfirmation = () => {
   const applicableRewards = useMemo(
     () =>
       selectedBusiness ? getActiveRewardsForBusiness(selectedBusiness) : [],
-    [selectedBusiness],
+    [selectedBusiness]
   );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,8 +1,8 @@
-import type { Business } from "@/app/screens/Customer";
+import type { BusinessType } from "@/lib/types";
 import { BadgeCheck, MapPin } from "lucide-react";
 
 interface IMockHuaweiMapProps {
-  businesses: Business[];
+  businesses: BusinessType[];
 }
 const MockHuaweiMap = ({ businesses }: IMockHuaweiMapProps) => {
   // Map boundaries for placing pins (mock viewport roughly around Johannesburg)

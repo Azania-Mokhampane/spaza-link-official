@@ -72,7 +72,7 @@ export function getRewardById(id: string): RewardItem | undefined {
 
 export function getActiveRewardsForBusiness(sourceId: string): RewardItem[] {
   return getRewards().filter(
-    (r) => r.sourceId === sourceId && r.status === "active",
+    (r) => r.sourceId === sourceId && r.status === "active"
   );
 }
 
@@ -92,7 +92,7 @@ export function redeemReward(id: string): RewardItem | undefined {
 }
 
 export function addReward(
-  reward: Omit<RewardItem, "id" | "status">,
+  reward: Omit<RewardItem, "id" | "status">
 ): RewardItem {
   const rewards = getRewards();
   const newReward: RewardItem = {
