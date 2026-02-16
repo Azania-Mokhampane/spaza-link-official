@@ -24,15 +24,20 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+        working-directory: client
 
       - name: Run ESLint
         run: yarn lint
+        working-directory: client
 
       - name: Check code formatting
         run: yarn format:check
+        working-directory: client
 
       - name: Typescript type check
         run: yarn typecheck
+        working-directory: client
 
       - name: Build Spaza Link
         run: yarn build
+        working-directory: client
