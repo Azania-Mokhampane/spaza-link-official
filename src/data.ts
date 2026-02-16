@@ -1,4 +1,4 @@
-import type { BusinessType } from "./lib/types";
+import type { BusinessType, RewardTemplate } from "./lib/types";
 
 export const mockBusinesses: BusinessType[] = [
   {
@@ -47,5 +47,31 @@ export const mockBusinesses: BusinessType[] = [
     longitude: 28.1001,
     isVerified: false,
     hasRewards: false,
+  },
+];
+
+export const CATEGORIES = [
+  "Spaza Shop",
+  "Fresh Produce",
+  "Hair & Beauty",
+  "Services",
+];
+
+export const defaultTemplates: RewardTemplate[] = [
+  {
+    id: "r1",
+    label: "Spend R300 → R20 airtime",
+    description: "Customers who spend R300 in-store earn R20 airtime.",
+  },
+  {
+    id: "r2",
+    label: "Spend R500 → R50 voucher",
+    description: "Customers who spend R500 in-store get a R50 voucher.",
+  },
+  {
+    id: "r3",
+    label: "Bulk purchase reward",
+    description:
+      "Reward customers who buy in bulk with a discount on their next visit.",
   },
 ];

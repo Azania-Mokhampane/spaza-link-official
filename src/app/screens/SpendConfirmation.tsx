@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { ROUTES } from "@/routes";
 
 const mockBusinesses: BusinessType[] = [
   {
@@ -101,7 +102,7 @@ const SpendConfirmation = () => {
     if (selectedRewardId) {
       navigate(`/customer/redeem/${selectedRewardId}`);
     } else {
-      navigate("/customer/reward-earned");
+      navigate(ROUTES.REWARD_EARNED);
     }
   };
 
@@ -109,7 +110,7 @@ const SpendConfirmation = () => {
   if (!isSignedIn) {
     return (
       <main className="flex flex-1 flex-col bg-background px-4 py-6">
-        <BackButton fallback="/customer" />
+        <BackButton fallback={ROUTES.CUSTOMER} />
         <div className="mx-auto w-full max-w-screen-sm">
           <section className="flex flex-col items-center rounded-xl border border-border bg-card px-6 py-16 text-center">
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
@@ -125,8 +126,8 @@ const SpendConfirmation = () => {
             <div className="flex flex-row items-center justify-center gap-2 mt-6">
               <SignInButton
                 mode="modal"
-                forceRedirectUrl="/customer/spend"
-                signUpForceRedirectUrl="/customer/spend"
+                forceRedirectUrl={ROUTES.SPEND_CONFIRMATION}
+                signUpForceRedirectUrl={ROUTES.SPEND_CONFIRMATION}
               >
                 <Button variant="landing">
                   <LogIn className="h-4 w-4" />
@@ -136,8 +137,8 @@ const SpendConfirmation = () => {
               <p>or</p>
               <SignUpButton
                 mode="modal"
-                forceRedirectUrl="/customer/spend"
-                signInForceRedirectUrl="/customer/spend"
+                forceRedirectUrl={ROUTES.SPEND_CONFIRMATION}
+                signInForceRedirectUrl={ROUTES.SPEND_CONFIRMATION}
                 unsafeMetadata={{ role: "customer" }}
               >
                 <Button variant="landing">
@@ -158,7 +159,7 @@ const SpendConfirmation = () => {
 
   return (
     <main className="flex flex-1 flex-col bg-background px-4 py-6">
-      <BackButton fallback="/customer" />
+      <BackButton fallback={ROUTES.CUSTOMER} />
       <div className="mx-auto w-full max-w-screen-sm">
         {/* Header */}
         <section className="mb-6">
@@ -179,7 +180,7 @@ const SpendConfirmation = () => {
                 value={selectedBusiness}
                 onValueChange={setSelectedBusiness}
               >
-                <SelectTrigger id="business-select">
+                <SelectTrigger id="business-select" className="w-full">
                   <SelectValue placeholder="Choose a business" />
                 </SelectTrigger>
                 <SelectContent>

@@ -1,7 +1,8 @@
+import { ROUTES } from "@/routes";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const BackButton = ({ fallback = "/" }: { fallback?: string }) => {
+const BackButton = ({ fallback = ROUTES.HOME }: { fallback?: string }) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
