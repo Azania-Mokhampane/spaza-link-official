@@ -125,7 +125,12 @@ export function getRewards(): RewardItem[] {
     localStorage.setItem(REWARDS_STORAGE_KEY, JSON.stringify(SEED_REWARDS));
     return SEED_REWARDS;
   }
-  return JSON.parse(raw) as RewardItem[];
+  try {
+    return JSON.parse(raw) as RewardItem[];
+  } catch {
+    localStorage.setItem(REWARDS_STORAGE_KEY, JSON.stringify(SEED_REWARDS));
+    return SEED_REWARDS;
+  }
 }
 
 export function getRewardById(id: string): RewardItem | undefined {
@@ -176,7 +181,15 @@ export function getCustomerTransactions(): CustomerTransaction[] {
     );
     return SEED_TRANSACTIONS;
   }
-  return JSON.parse(raw) as CustomerTransaction[];
+  try {
+    return JSON.parse(raw) as CustomerTransaction[];
+  } catch {
+    localStorage.setItem(
+      TRANSACTIONS_STORAGE_KEY,
+      JSON.stringify(SEED_TRANSACTIONS)
+    );
+    return SEED_TRANSACTIONS;
+  }
 }
 
 export function getBudgets(): Budget[] {
@@ -185,7 +198,12 @@ export function getBudgets(): Budget[] {
     localStorage.setItem(BUDGETS_STORAGE_KEY, JSON.stringify(DEFAULT_BUDGETS));
     return DEFAULT_BUDGETS;
   }
-  return JSON.parse(raw) as Budget[];
+  try {
+    return JSON.parse(raw) as Budget[];
+  } catch {
+    localStorage.setItem(BUDGETS_STORAGE_KEY, JSON.stringify(DEFAULT_BUDGETS));
+    return DEFAULT_BUDGETS;
+  }
 }
 
 export function updateBudgetLimit(id: string, limit: number): Budget[] {
