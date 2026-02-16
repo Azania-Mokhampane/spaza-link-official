@@ -162,3 +162,134 @@
     @apply bg-background text-foreground;
   }
 }
+
+.logo-orbit-container {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+}
+
+.logo-orbit-leaf {
+  position: absolute;
+  width: 0.8rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  background: var(--primary);
+  opacity: 0;
+  transform-origin: center;
+  z-index: 1;
+  animation: leaf-orbit 2.4s ease-out forwards;
+}
+
+.logo-orbit-leaf-1 {
+  --leaf-x: -120%;
+  --leaf-y: -40%;
+  animation-delay: 0.05s;
+}
+
+.logo-orbit-leaf-2 {
+  --leaf-x: 110%;
+  --leaf-y: -30%;
+  animation-delay: 0.12s;
+}
+
+.logo-orbit-leaf-3 {
+  --leaf-x: -130%;
+  --leaf-y: 40%;
+  animation-delay: 0.2s;
+}
+
+.logo-orbit-leaf-4 {
+  --leaf-x: 120%;
+  --leaf-y: 60%;
+  animation-delay: 0.28s;
+}
+
+.logo-orbit-leaf-5 {
+  --leaf-x: -80%;
+  --leaf-y: 90%;
+  animation-delay: 0.35s;
+}
+
+.logo-orbit-leaf-6 {
+  --leaf-x: 70%;
+  --leaf-y: -80%;
+  animation-delay: 0.42s;
+}
+
+@keyframes leaf-orbit {
+  0% {
+    opacity: 0;
+    transform: translate(var(--leaf-x, 0), var(--leaf-y, 0)) scale(0.4)
+      rotate(-30deg);
+    filter: blur(3px);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    filter: blur(0);
+  }
+}
+
+.logo-orbit-main {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: logo-orbit-fade-in 2s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes logo-orbit-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.logo-tree {
+  position: absolute;
+  width: 3.25rem;
+  height: 4.5rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--primary) 0,
+    var(--primary) 40%,
+    transparent 75%
+  );
+  opacity: 0.45;
+  filter: blur(1px);
+  animation: tree-sway 5s ease-in-out infinite alternate;
+}
+
+.logo-tree-left {
+  left: -1.5rem;
+  top: 0.4rem;
+}
+
+.logo-tree-right {
+  right: -1.5rem;
+  bottom: 0.4rem;
+  animation-delay: 1.25s;
+}
+
+@keyframes tree-sway {
+  0% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(-4px) rotate(1deg);
+  }
+}

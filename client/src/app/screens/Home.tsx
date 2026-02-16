@@ -14,13 +14,26 @@ const Home = () => {
   return (
     <div className="flex flex-1 items-center justify-center bg-background px-6 ">
       <div className="flex w-full max-w-sm flex-col items-center text-center">
-        {/* Logo / Brand */}
-        <div className="">
-          <img
-            src={logo}
-            alt="Spaza Link"
-            className="mx-auto mb-3 h-30 w-30 object-contain"
-          />
+        <div className="logo-orbit-container mb-3">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="logo-tree logo-tree-left" />
+            <div className="logo-tree logo-tree-right" />
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src={logo}
+              alt="Spaza Link"
+              className="h-24 w-24 object-contain logo-orbit-main"
+            />
+          </div>
+          <div className="pointer-events-none absolute inset-0">
+            <div className="logo-orbit-leaf logo-orbit-leaf-1" />
+            <div className="logo-orbit-leaf logo-orbit-leaf-2" />
+            <div className="logo-orbit-leaf logo-orbit-leaf-3" />
+            <div className="logo-orbit-leaf logo-orbit-leaf-4" />
+            <div className="logo-orbit-leaf logo-orbit-leaf-5" />
+            <div className="logo-orbit-leaf logo-orbit-leaf-6" />
+          </div>
         </div>
 
         {isSignedIn ? (
