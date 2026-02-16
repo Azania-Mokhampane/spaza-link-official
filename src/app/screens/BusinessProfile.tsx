@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { mockBusinesses } from "@/data";
+import { ROUTES } from "@/routes";
 
 const areaFromCoords = (lat: number) => {
   if (lat < -26.21) return "Soweto South";
@@ -21,7 +22,7 @@ const BusinessProfile = () => {
   if (!business) {
     return (
       <main className="flex flex-1 flex-col bg-background px-4 py-6">
-        <BackButton fallback="/customer" />
+        <BackButton fallback={ROUTES.CUSTOMER} />
         <div className="mx-auto w-full max-w-screen-sm">
           <section className="flex flex-col items-center rounded-xl border border-border bg-card px-6 py-16 text-center">
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
@@ -43,7 +44,7 @@ const BusinessProfile = () => {
 
   return (
     <main className="flex flex-1 flex-col bg-background px-4 py-6">
-      <BackButton fallback="/customer" />
+      <BackButton fallback={ROUTES.CUSTOMER} />
       <div className="mx-auto w-full max-w-screen-sm">
         {/* Header */}
         <section className="mb-6 flex items-start gap-4">
@@ -121,7 +122,7 @@ const BusinessProfile = () => {
           variant="landing"
           size="xl"
           className="w-full gap-2"
-          onClick={() => navigate("/customer/spend")}
+          onClick={() => navigate(ROUTES.SPEND_CONFIRMATION)}
         >
           <ShoppingBag className="h-5 w-5" />
           Shop Here (In-Store)

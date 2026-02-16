@@ -3,6 +3,7 @@ import { LayoutDashboard, MapPin, ShoppingBag, Store } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.svg";
 import { useAuthContext } from "../auth/useAuthContext";
+import { ROUTES } from "@/routes";
 
 const Home = () => {
   document.title = "Spaza Link";
@@ -43,7 +44,7 @@ const Home = () => {
                     variant="landing"
                     size="xl"
                     className="w-full"
-                    onClick={() => navigate("/business/dashboard")}
+                    onClick={() => navigate(ROUTES.BUSINESS_DASHBOARD)}
                   >
                     <LayoutDashboard className="h-5 w-5" />
                     Go to your dashboard
@@ -52,7 +53,7 @@ const Home = () => {
                     variant="landingOutline"
                     size="xl"
                     className="w-full"
-                    onClick={() => navigate("/customer")}
+                    onClick={() => navigate(ROUTES.CUSTOMER)}
                   >
                     <MapPin className="h-5 w-5" />
                     Explore local businesses
@@ -64,7 +65,7 @@ const Home = () => {
                     variant="landing"
                     size="xl"
                     className="w-full"
-                    onClick={() => navigate("/customer")}
+                    onClick={() => navigate(ROUTES.CUSTOMER)}
                   >
                     <MapPin className="h-5 w-5" />
                     Explore nearby businesses
@@ -73,7 +74,7 @@ const Home = () => {
                     variant="landingOutline"
                     size="xl"
                     className="w-full"
-                    onClick={() => navigate("/business")}
+                    onClick={() => navigate(ROUTES.BUSINESS)}
                   >
                     <Store className="h-5 w-5" />I run a business
                   </Button>
@@ -107,7 +108,7 @@ const Home = () => {
                 variant="landing"
                 size="xl"
                 className="w-full"
-                onClick={() => navigate("/customer")}
+                onClick={() => navigate(ROUTES.CUSTOMER)}
               >
                 <ShoppingBag className="h-5 w-5" />
                 Continue as Customer
@@ -116,7 +117,7 @@ const Home = () => {
                 variant="landingOutline"
                 size="xl"
                 className="w-full"
-                onClick={() => navigate("/business")}
+                onClick={() => navigate(ROUTES.BUSINESS)}
               >
                 <Store className="h-5 w-5" />
                 Continue as Business

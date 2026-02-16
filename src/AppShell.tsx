@@ -2,6 +2,7 @@ import { ClerkLoaded, SignedIn, UserButton } from "@clerk/clerk-react";
 import { SystemBanners } from "./app/SystemBanners";
 import logo from "@/assets/logo.svg";
 import { useAuthContext } from "./app/auth/useAuthContext";
+import { ROUTES } from "./routes";
 
 export function AppShell({ children }: { children?: React.ReactNode }) {
   const auth = useAuthContext();
@@ -9,7 +10,7 @@ export function AppShell({ children }: { children?: React.ReactNode }) {
     <div className="flex min-h-svh w-full flex-col">
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
         <div className="mx-auto flex justify-between h-14 max-w-7xl items-center px-4">
-          <a href="/" className="flex items-center gap-2">
+          <a href={ROUTES.HOME} className="flex items-center gap-2">
             <img
               src={logo}
               alt="Spaza Link"

@@ -22,14 +22,15 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import NavLink from "./NavLink";
 import { useAuthContext } from "@/app/auth/useAuthContext";
 import { ClerkLoaded, useAuth } from "@clerk/clerk-react";
+import { ROUTES } from "@/routes";
 
 const Navbar = () => {
   const { isSignedIn, user } = useAuthContext();
   const { signOut } = useAuth();
   const location = useLocation();
 
-  const isCustomerPath = location.pathname.startsWith("/customer");
-  const isTraderPath = location.pathname.startsWith("/business");
+  const isCustomerPath = location.pathname.startsWith(ROUTES.CUSTOMER);
+  const isTraderPath = location.pathname.startsWith(ROUTES.BUSINESS);
 
   const isCustomer = user?.role === "customer";
   const isTrader = user?.role === "trader";
@@ -47,7 +48,7 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
       <div className="mx-auto flex h-14 max-w-7xl items-center px-4">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to={ROUTES.HOME} className="flex items-center gap-2">
           <img
             src={logo}
             alt="Spaza Link"
@@ -64,20 +65,20 @@ const Navbar = () => {
             aria-label="Customer navigation"
           >
             <NavLink
-              to="/customer"
+              to={ROUTES.CUSTOMER}
               icon={Store}
               label="Discover"
               currentPath={location.pathname}
               exact
             />
             <NavLink
-              to="/customer/spend"
+              to={ROUTES.SPEND_CONFIRMATION}
               icon={Receipt}
               label="Spend"
               currentPath={location.pathname}
             />
             <NavLink
-              to="/customer/wallet"
+              to={ROUTES.WALLET}
               icon={Wallet}
               label="Wallet"
               currentPath={location.pathname}
@@ -91,19 +92,19 @@ const Navbar = () => {
             aria-label="Trader navigation"
           >
             <NavLink
-              to="/business/dashboard"
+              to={ROUTES.BUSINESS_DASHBOARD}
               icon={LayoutDashboard}
               label="Dashboard"
               currentPath={location.pathname}
             />
             <NavLink
-              to="/business/register"
+              to={ROUTES.BUSINESS_REGISTRATION}
               icon={ClipboardList}
               label="Register"
               currentPath={location.pathname}
             />
             <NavLink
-              to="/business/status"
+              to={ROUTES.BUSINESS_STATUS}
               icon={UserCircle}
               label="Status"
               currentPath={location.pathname}

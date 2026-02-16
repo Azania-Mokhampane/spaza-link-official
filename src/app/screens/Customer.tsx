@@ -5,6 +5,7 @@ import EmptyState from "@/components/feedback/EmptyState";
 import BackButton from "@/components/navigation/BackButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { mockBusinesses } from "@/data";
+import { ROUTES } from "@/routes";
 import { List, Store, Map } from "lucide-react";
 
 const isLoading = false;
@@ -15,7 +16,7 @@ const Customer = () => {
 
   return (
     <main className="flex flex-1 flex-col bg-background px-4 py-6">
-      <BackButton fallback="/" />
+      <BackButton fallback={ROUTES.HOME} />
       <div className="mx-auto w-full max-w-screen-sm space-y-6">
         {/* Page Header */}
         <section className="mb-8">
