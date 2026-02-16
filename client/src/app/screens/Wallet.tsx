@@ -1,16 +1,22 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Wallet as WalletIcon,
-  Smartphone,
-  Gift,
-  Clock,
-  LogIn,
-} from "lucide-react";
+import { Wallet as WalletIcon, Smartphone, Gift, Clock, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { getRewards, type RewardItem } from "@/lib/rewardsStore";
+import { Input } from "@/components/ui/input";
+import {
+  getRewards,
+  type RewardItem,
+  getCustomerTransactions,
+  getRewardInsights,
+  type CustomerTransaction,
+  getBudgets,
+  getBudgetInsight,
+  getSpazaBalance,
+  updateBudgetLimit,
+} from "@/lib/rewardsStore";
 import { useAuthContext } from "../auth/useAuthContext";
 import BackButton from "@/components/navigation/BackButton";
 
@@ -23,8 +29,8 @@ const statusStyles: Record<RewardItem["status"], string> = {
 const Wallet = () => {
   const { isSignedIn } = useAuthContext();
   const navigate = useNavigate();
+  const [budgetList, setBudgetList] = useState(getBudgets);
 
-  // Gate: must be logged in
   if (!isSignedIn) {
     return (
       <main className="flex flex-1 flex-col bg-background px-4 py-6">
@@ -56,11 +62,24 @@ const Wallet = () => {
   }
 
   const rewards = getRewards();
+  const transactions = getCustomerTransactions();
+  const budgets = budgetList;
+  const spazaBalance = getSpazaBalance();
   const activeRewards = rewards.filter((r) => r.status === "active");
   const pastRewards = rewards.filter((r) => r.status !== "active");
   const totalAirtime = rewards
     .filter((r) => r.type === "airtime" && r.status === "active")
     .reduce((sum, r) => sum + parseInt(r.amount.replace("R", ""), 10), 0);
+
+  const insight = getRewardInsights(rewards, transactions);
+  const budgetInsight = getBudgetInsight(budgets, transactions);
+
+  const handleBudgetChange = (id: string, value: string) => {
+    const numeric = Number(value);
+    const safeValue = Number.isNaN(numeric) || numeric < 0 ? 0 : Math.floor(numeric);
+    const updated = updateBudgetLimit(id, safeValue);
+    setBudgetList(updated);
+  };
 
   return (
     <main className="flex flex-1 flex-col bg-background px-4 py-6">
@@ -78,18 +97,121 @@ const Wallet = () => {
 
         {/* Balance Card */}
         <Card className="mb-5 border-primary/20 bg-primary/5">
-          <CardContent className="flex items-center gap-4 p-5">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary/10">
-              <WalletIcon className="h-7 w-7 text-primary" />
+          <CardContent className="flex flex-col gap-4 p-5">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                <WalletIcon className="h-7 w-7 text-primary" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-muted-foreground">Airtime balance</p>
+                <p className="text-3xl font-extrabold tracking-tight text-foreground">
+                  R{totalAirtime}
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Airtime Balance</p>
-              <p className="text-3xl font-extrabold tracking-tight text-foreground">
-                R{totalAirtime}
-              </p>
+            <div className="flex items-center justify-between gap-3 rounded-lg border border-dashed border-primary/30 bg-background px-3 py-2">
+              <div>
+                <p className="text-xs font-medium text-muted-foreground">
+                  Spaza savings balance
+                </p>
+                <p className="text-lg font-semibold text-foreground">
+                  R{spazaBalance}
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="text-xs"
+                onClick={() => navigate("/customer/pay")}
+              >
+                Pay at store
+              </Button>
             </div>
           </CardContent>
         </Card>
+
+        {/* AI Insight */}
+        {transactions.length > 0 && (
+          <section className="mb-5">
+            <Card className="border-primary/30 bg-primary/5">
+              <CardContent className="p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                  AI insight
+                </p>
+                <h2 className="mt-1 text-sm font-bold text-foreground">
+                  {insight.title}
+                </h2>
+                {insight.summary && (
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {insight.summary}
+                  </p>
+                )}
+                <p className="mt-2 text-sm font-medium text-foreground">
+                  {insight.suggestion}
+                </p>
+              </CardContent>
+            </Card>
+          </section>
+        )}
+
+        {/* Budget Insight */}
+        <section className="mb-5">
+          <Card>
+            <CardContent className="p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                Budget coach
+              </p>
+              <h2 className="mt-1 text-sm font-bold text-foreground">
+                {budgetInsight.title}
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {budgetInsight.summary}
+              </p>
+              {budgetInsight.warning && (
+                <p className="mt-2 text-sm font-medium text-destructive">
+                  {budgetInsight.warning}
+                </p>
+              )}
+            </CardContent>
+          </Card>
+        </section>
+
+        <section className="mb-5">
+          <Card>
+            <CardContent className="space-y-3 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Budget plan
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Adjust how much you want to set aside for each category this month.
+              </p>
+              <div className="space-y-3">
+                {budgetList.map((budget) => (
+                  <div key={budget.id} className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-foreground">
+                        {budget.label}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs text-muted-foreground">R</span>
+                      <Input
+                        type="number"
+                        min={0}
+                        className="h-8 w-24 text-right text-sm"
+                        value={budget.limit}
+                        onChange={(e) =>
+                          handleBudgetChange(budget.id, e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </section>
 
         {/* Active Rewards */}
         {activeRewards.length > 0 && (
@@ -114,11 +236,26 @@ const Wallet = () => {
           <section>
             <Separator className="mb-4" />
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-              History
+              Reward history
             </h2>
             <div className="flex flex-col gap-3">
               {pastRewards.map((reward) => (
                 <RewardCard key={reward.id} reward={reward} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Spend History */}
+        {transactions.length > 0 && (
+          <section className="mt-6">
+            <Separator className="mb-4" />
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Spend history
+            </h2>
+            <div className="flex flex-col gap-3">
+              {transactions.map((tx) => (
+                <TransactionCard key={tx.id} transaction={tx} />
               ))}
             </div>
           </section>
@@ -197,6 +334,29 @@ const RewardCard = ({
           <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
             <Clock className="h-3 w-3" />
             {reward.date}
+          </span>
+        )}
+      </div>
+    </CardContent>
+  </Card>
+);
+
+const TransactionCard = ({ transaction }: { transaction: CustomerTransaction }) => (
+  <Card>
+    <CardContent className="flex items-center justify-between gap-3 p-4">
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-semibold text-foreground">
+          {transaction.businessName}
+        </p>
+        <p className="mt-0.5 text-xs text-muted-foreground">{transaction.date}</p>
+      </div>
+      <div className="flex flex-col items-end gap-1">
+        <span className="text-sm font-bold text-foreground">
+          {transaction.amount}
+        </span>
+        {transaction.rewardChange && (
+          <span className="text-[10px] font-medium text-primary">
+            {transaction.rewardChange}
           </span>
         )}
       </div>

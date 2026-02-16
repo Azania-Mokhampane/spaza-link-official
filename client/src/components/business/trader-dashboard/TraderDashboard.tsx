@@ -5,7 +5,9 @@ import {
   TrendingUp,
   CheckCircle2,
   Store,
+  ScanLine,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import type { Transaction } from "@/lib/types";
 import { useAuthContext } from "@/app/auth/useAuthContext";
@@ -41,6 +43,7 @@ const insights = {
 
 const TraderDashboard = () => {
   const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   return (
     <div className="space-y-6">
@@ -122,6 +125,27 @@ const TraderDashboard = () => {
               Registered
             </Badge>
           </div>
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-dashed border-primary/40 bg-primary/5 p-4">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">
+              Receive in‑app payments
+            </h3>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Use the Huawei‑style QR flow to accept wallet payments from customers.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground"
+            onClick={() => navigate("/business/receive")}
+          >
+            <ScanLine className="h-3.5 w-3.5" />
+            Receive payment
+          </button>
         </div>
       </section>
 

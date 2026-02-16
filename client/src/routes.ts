@@ -9,6 +9,8 @@ import RedeemReward from "./app/screens/RedeemReward";
 import RewardEarned from "./app/screens/RewardEarned";
 import SpendConfirmation from "./app/screens/SpendConfirmation";
 import Wallet from "./app/screens/Wallet";
+import PayAtStore from "./app/screens/PayAtStore";
+import ReceivePayment from "./app/screens/ReceivePayment";
 
 export const ROUTES = {
   HOME: "/",
@@ -17,11 +19,13 @@ export const ROUTES = {
   BUSINESS_DASHBOARD: "/business/dashboard",
   BUSINESS_REGISTRATION: "/business/register",
   BUSINESS_STATUS: "/business/status",
+  BUSINESS_RECEIVE_PAYMENT: "/business/receive",
   // customer
   BUSINESS_PROFILE: "/customer/business/:id",
   CUSTOMER: "/customer",
   SPEND_CONFIRMATION: "/customer/spend",
   WALLET: "/customer/wallet",
+  PAY_AT_STORE: "/customer/pay",
   REWARD_EARNED: "/customer/reward-earned",
   REDEEM_REWARD: "/customer/redeem/:rewardId",
 } as const;
@@ -42,6 +46,7 @@ export const routes = [
     element: SpendConfirmation,
   },
   { path: ROUTES.WALLET, element: Wallet },
+  { path: ROUTES.PAY_AT_STORE, element: PayAtStore },
   { path: ROUTES.REDEEM_REWARD, element: RedeemReward },
   // business routes
   {
@@ -53,6 +58,7 @@ export const routes = [
     element: BusinessProfile,
   },
   { path: ROUTES.BUSINESS_DASHBOARD, element: BusinessDashboard },
+  { path: ROUTES.BUSINESS_RECEIVE_PAYMENT, element: ReceivePayment },
   { path: ROUTES.BUSINESS_REGISTRATION, element: BusinessRegister },
   { path: ROUTES.BUSINESS_STATUS, element: BusinessStatus },
 ];
