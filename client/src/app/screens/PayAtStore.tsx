@@ -42,7 +42,8 @@ const PayAtStore = () => {
             Pay at store
           </h1>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Show this code at a registered spaza so they can receive payment from your Spaza balance.
+            Show this code at a registered spaza so they can receive payment
+            from your Spaza balance.
           </p>
         </section>
 
@@ -129,4 +130,3 @@ const PayAtStore = () => {
 };
 
 export default PayAtStore;
-

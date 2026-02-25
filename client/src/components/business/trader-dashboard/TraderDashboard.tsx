@@ -135,7 +135,8 @@ const TraderDashboard = () => {
               Receive in‑app payments
             </h3>
             <p className="mt-1 text-xs text-muted-foreground">
-              Use the Huawei‑style QR flow to accept wallet payments from customers.
+              Use the Huawei‑style QR flow to accept wallet payments from
+              customers.
             </p>
           </div>
           <button

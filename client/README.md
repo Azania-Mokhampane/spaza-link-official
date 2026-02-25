@@ -7,7 +7,6 @@ A modern React + TypeScript + Vite application for the Spaza Link platform. This
 ### Prerequisites
 
 - Node.js (v18 or higher)
-- Yarn (this project uses Yarn for package management)
 
 ### Installation
 
@@ -15,13 +14,13 @@ A modern React + TypeScript + Vite application for the Spaza Link platform. This
 2. Install dependencies:
 
 ```bash
-yarn install
+npm install
 ```
 
 3. Start the development server:
 
 ```bash
-yarn dev
+npm run dev
 ```
 
 The application will be available at `http://localhost:5173` with hot module replacement (HMR) enabled.
@@ -55,19 +54,19 @@ src/
 
 ```bash
 # Development server with HMR
-yarn dev
+npm run dev
 
 # Build for production
-yarn build
+npm run build
 
 # Preview production build locally
-yarn preview
+npm run preview
 
 # Lint code
-yarn lint
+npm run lint
 
 # Generate PWA icons
-yarn generate-pwa-icons
+npm run generate-pwa-icons
 ```
 
 ## 🛠️ Tech Stack
@@ -112,7 +111,7 @@ Routes are defined in [src/app/routes.tsx](src/app/routes.tsx). The application 
 The project uses ESLint for code quality. To lint your code:
 
 ```bash
-yarn lint
+npm run lint
 ```
 
 For production applications, consider enabling type-aware lint rules by updating the ESLint configuration.
@@ -120,7 +119,7 @@ For production applications, consider enabling type-aware lint rules by updating
 ## 🏗️ Building for Production
 
 ```bash
-yarn build
+npm run build
 ```
 
 This command:
@@ -134,7 +133,7 @@ This command:
 This project is configured as a Progressive Web App. To regenerate PWA icons:
 
 ```bash
-yarn generate-pwa-icons
+npm run generate-pwa-icons
 ```
 
 ## 🤝 Contributing
@@ -143,7 +142,7 @@ When working on this project:
 
 1. Follow the existing folder structure
 2. Use TypeScript for type safety
-3. Run `yarn lint` before committing
+3. Run `npm run lint` before committing
 4. Keep components reusable and well-documented
 
 ## 📄 License

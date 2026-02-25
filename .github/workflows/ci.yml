@@ -20,25 +20,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "yarn"
-          cache-dependency-path: client/yarn.lock
+          cache: "npm"
+          cache-dependency-path: client/package-lock.json
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
         working-directory: client
 
       - name: Run ESLint
-        run: yarn lint
+        run: npm run lint
         working-directory: client
 
       - name: Check code formatting
-        run: yarn format:check
+        run: npm run format:check
         working-directory: client
 
       - name: Typescript type check
-        run: yarn typecheck
+        run: npm run typecheck
         working-directory: client
 
       - name: Build Spaza Link
-        run: yarn build
+        run: npm run build
         working-directory: client

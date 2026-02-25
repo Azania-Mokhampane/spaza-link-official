@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Wallet as WalletIcon, Smartphone, Gift, Clock, LogIn } from "lucide-react";
+import {
+  Wallet as WalletIcon,
+  Smartphone,
+  Gift,
+  Clock,
+  LogIn,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -76,7 +82,8 @@ const Wallet = () => {
 
   const handleBudgetChange = (id: string, value: string) => {
     const numeric = Number(value);
-    const safeValue = Number.isNaN(numeric) || numeric < 0 ? 0 : Math.floor(numeric);
+    const safeValue =
+      Number.isNaN(numeric) || numeric < 0 ? 0 : Math.floor(numeric);
     const updated = updateBudgetLimit(id, safeValue);
     setBudgetList(updated);
   };
@@ -184,7 +191,8 @@ const Wallet = () => {
                 Budget plan
               </p>
               <p className="text-xs text-muted-foreground">
-                Adjust how much you want to set aside for each category this month.
+                Adjust how much you want to set aside for each category this
+                month.
               </p>
               <div className="space-y-3">
                 {budgetList.map((budget) => (
@@ -341,14 +349,20 @@ const RewardCard = ({
   </Card>
 );
 
-const TransactionCard = ({ transaction }: { transaction: CustomerTransaction }) => (
+const TransactionCard = ({
+  transaction,
+}: {
+  transaction: CustomerTransaction;
+}) => (
   <Card>
     <CardContent className="flex items-center justify-between gap-3 p-4">
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-foreground">
           {transaction.businessName}
         </p>
-        <p className="mt-0.5 text-xs text-muted-foreground">{transaction.date}</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">
+          {transaction.date}
+        </p>
       </div>
       <div className="flex flex-col items-end gap-1">
         <span className="text-sm font-bold text-foreground">

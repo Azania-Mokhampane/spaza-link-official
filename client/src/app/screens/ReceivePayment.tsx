@@ -46,14 +46,17 @@ const ReceivePayment = () => {
             Receive payment
           </h1>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Ask the customer to show their payment code, then enter or scan it to receive funds into your trader balance.
+            Ask the customer to show their payment code, then enter or scan it
+            to receive funds into your trader balance.
           </p>
         </section>
 
         <Card>
           <CardContent className="space-y-4 p-4">
             <div className="flex items-baseline justify-between">
-              <p className="text-sm text-muted-foreground">Trader demo balance</p>
+              <p className="text-sm text-muted-foreground">
+                Trader demo balance
+              </p>
               <p className="text-2xl font-extrabold tracking-tight text-foreground">
                 R{merchantBalance}
               </p>
@@ -98,4 +101,3 @@ const ReceivePayment = () => {
 };
 
 export default ReceivePayment;
-
