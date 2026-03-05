@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Wallet as WalletIcon,
@@ -22,6 +22,8 @@ import {
   getBudgetInsight,
   getSpazaBalance,
   updateBudgetLimit,
+  type BudgetInsight,
+  fetchBudgetInsightFromServer,
 } from "@/lib/rewardsStore";
 import { useAuthContext } from "../auth/useAuthContext";
 import BackButton from "@/components/navigation/BackButton";
@@ -36,6 +38,41 @@ const Wallet = () => {
   const { isSignedIn } = useAuthContext();
   const navigate = useNavigate();
   const [budgetList, setBudgetList] = useState(getBudgets);
+  const [budgetInsight, setBudgetInsight] = useState<BudgetInsight | null>(
+    null
+  );
+
+  useEffect(() => {
+    if (!isSignedIn) {
+      setBudgetInsight(null);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadInsight() {
+      try {
+        const serverInsight = await fetchBudgetInsightFromServer();
+        if (!cancelled) {
+          setBudgetInsight(serverInsight);
+        }
+      } catch {
+        if (!cancelled) {
+          const fallbackBudgets = budgetList;
+          const fallbackTransactions = getCustomerTransactions();
+          setBudgetInsight(
+            getBudgetInsight(fallbackBudgets, fallbackTransactions)
+          );
+        }
+      }
+    }
+
+    loadInsight();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isSignedIn, budgetList]);
 
   if (!isSignedIn) {
     return (
@@ -69,7 +106,6 @@ const Wallet = () => {
 
   const rewards = getRewards();
   const transactions = getCustomerTransactions();
-  const budgets = budgetList;
   const spazaBalance = getSpazaBalance();
   const activeRewards = rewards.filter((r) => r.status === "active");
   const pastRewards = rewards.filter((r) => r.status !== "active");
@@ -78,7 +114,6 @@ const Wallet = () => {
     .reduce((sum, r) => sum + parseInt(r.amount.replace("R", ""), 10), 0);
 
   const insight = getRewardInsights(rewards, transactions);
-  const budgetInsight = getBudgetInsight(budgets, transactions);
 
   const handleBudgetChange = (id: string, value: string) => {
     const numeric = Number(value);
@@ -163,26 +198,28 @@ const Wallet = () => {
         )}
 
         {/* Budget Insight */}
-        <section className="mb-5">
-          <Card>
-            <CardContent className="p-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                Budget coach
-              </p>
-              <h2 className="mt-1 text-sm font-bold text-foreground">
-                {budgetInsight.title}
-              </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {budgetInsight.summary}
-              </p>
-              {budgetInsight.warning && (
-                <p className="mt-2 text-sm font-medium text-destructive">
-                  {budgetInsight.warning}
+        {budgetInsight && (
+          <section className="mb-5">
+            <Card>
+              <CardContent className="p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                  Budget coach
                 </p>
-              )}
-            </CardContent>
-          </Card>
-        </section>
+                <h2 className="mt-1 text-sm font-bold text-foreground">
+                  {budgetInsight.title}
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {budgetInsight.summary}
+                </p>
+                {budgetInsight.warning && (
+                  <p className="mt-2 text-sm font-medium text-destructive">
+                    {budgetInsight.warning}
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          </section>
+        )}
 
         <section className="mb-5">
           <Card>

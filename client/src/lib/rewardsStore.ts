@@ -43,6 +43,18 @@ const TRANSACTIONS_STORAGE_KEY = "spaza_customer_transactions";
 const BUDGETS_STORAGE_KEY = "spaza_budgets";
 const SPAZA_BALANCE_STORAGE_KEY = "spaza_wallet_balance";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
+
+export async function fetchBudgetInsightFromServer(): Promise<BudgetInsight> {
+  const res = await fetch(`${API_BASE_URL}/api/ai/budget-insight`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch budget insight");
+  }
+  const data = (await res.json()) as { insight: BudgetInsight };
+  return data.insight;
+}
+
 const SEED_REWARDS: RewardItem[] = [
   {
     id: "r1",
