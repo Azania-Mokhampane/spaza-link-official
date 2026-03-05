@@ -1,7 +1,12 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { getBudgets, updateBudgetLimit } from "../src/state";
+import { handleCors } from "./_cors";
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
+  if (handleCors(req, res)) {
+    return;
+  }
+
   if (req.method === "GET") {
     res.status(200).json({ budgets: getBudgets() });
     return;
@@ -23,7 +28,8 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  res.setHeader("Allow", "GET, PUT");
+  res.setHeader("Allow", "GET, PUT, OPTIONS");
   res.status(405).end("Method Not Allowed");
 }
+
 

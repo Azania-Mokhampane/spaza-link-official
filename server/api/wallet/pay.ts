@@ -1,9 +1,14 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { payFromWallet } from "../../src/state";
+import { handleCors } from "../_cors";
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
+  if (handleCors(req, res)) {
+    return;
+  }
+
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
+    res.setHeader("Allow", "POST, OPTIONS");
     res.status(405).end("Method Not Allowed");
     return;
   }
@@ -22,4 +27,5 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     res.status(400).json({ error: message || "Invalid amount" });
   }
 }
+
 
